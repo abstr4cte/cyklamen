@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#2a8609",
+              "secondary-fixed-dim": "#bfc7d2",
+              "error": "#ba1a1a",
+              "surface-container-high": "#e6e8e9",
+              "on-primary-container": "#fffbff",
+              "surface-tint": "#D44E98",
+              "on-background": "#191c1d",
+              "on-primary": "#ffffff",
+              "surface": "#f8fafb",
+              "surface-container-low": "#f2f4f5",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#404751",
+              "on-secondary-fixed": "#141c25",
+              "primary-container": "#D44E98",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed": "#99fa76",
+              "secondary": "#575f69",
+              "surface-variant": "#e1e3e4",
+              "on-tertiary-container": "#f8ffee",
+              "inverse-surface": "#2e3132",
+              "tertiary-fixed-dim": "#7edc5d",
+              "inverse-primary": "#ffb0d0",
+              "primary-fixed": "#ffd8e6",
+              "surface-bright": "#f8fafb",
+              "on-surface-variant": "#554149",
+              "primary": "#D44E98",
+              "surface-dim": "#d8dadb",
+              "on-tertiary-fixed-variant": "#145200",
+              "surface-container-highest": "#e1e3e4",
+              "secondary-fixed": "#dbe3ef",
+              "on-tertiary-fixed": "#042100",
+              "tertiary": "#1c6a00",
+              "primary-fixed-dim": "#ffb0d0",
+              "secondary-container": "#dbe3ef",
+              "inverse-on-surface": "#eff1f2",
+              "on-primary-fixed-variant": "#D44E98",
+              "background": "#f8fafb",
+              "on-secondary-container": "#5d656f",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#191c1d",
+              "surface-container": "#eceeef",
+              "outline": "#88717a",
+              "on-primary-fixed": "#3d0023",
+              "on-error-container": "#93000a",
+              "outline-variant": "#dbbfc9",
+              "on-error": "#ffffff",
+              "on-tertiary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .hero-glass-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #D44E98 0%, #ff7dbd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .primary-gradient-bg {
+            background: linear-gradient(135deg, #D44E98 0%, #ff7dbd 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top Navigation -->
+<nav class="fixed top-0 z-50 w-full bg-white px-8 py-6 flex justify-between items-center border-b border-surface-variant/20">
+<div class="relative group cursor-pointer">
+<div class="text-xl font-headline font-extrabold tracking-tight text-on-surface uppercase">
+                DOM W CYKLAMENACH
+            </div>
+<div class="h-0.5 w-full bg-[#D44E98] mt-0.5"></div>
+</div>
+<div class="hidden md:flex gap-10 items-center">
+<a class="font-label text-sm tracking-widest text-[#D44E98] border-b-2 border-[#D44E98] pb-1" href="#">Lokalizacja</a>
+<a class="font-label text-sm tracking-widest text-secondary hover:text-[#D44E98] transition-colors duration-300" href="#">Galeria</a>
+<a class="font-label text-sm tracking-widest text-secondary hover:text-[#D44E98] transition-colors duration-300" href="#">Kontakt</a>
+<button class="primary-gradient-bg text-on-primary px-6 py-3 rounded-xl font-label text-xs font-bold tracking-widest transition-transform active:scale-95 duration-200">
+                Umów się na spotkanie
+            </button>
+</div>
+<div class="md:hidden text-secondary">
+<span class="material-symbols-outlined">menu</span>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-start overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Dom w Cyklamenach Hero" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujy_NCKo9OTLCJ5T08usT1HzjSBPI3cAdgEIcYr1vN_cDf9ldUKdOZZkDe98X5eoDNzioM-1AT-0m0Ay4n6xrmiuedRpYmmsgTTmaNts5RVSS2cZ1a-dDnMRXKHcbnR4CWpOVDOiRH6DNFwdvesre8qD9PzorPx2RslkfFkYsWrw_KRolyKS5JcvqQ05pfZ4JFpH_Z-w5lZ1nDLsydzVQyHqFcJBbt9v5iUWIAw4ZEhN_mMAMb9ijA3a13LwtzL_FW0qx7mAxqNiA"/>
+</div>
+<div class="relative z-10 w-full max-w-7xl px-8 md:px-16 mt-20">
+<div class="w-full max-w-[480px] hero-glass-box p-10 md:p-14 rounded-xl shadow-xl">
+<h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-6 leading-[1.1]">
+                        Twój nowy rozdział <br/><span class="text-[#D44E98]">zaczyna się tutaj.</span>
+</h1>
+<p class="text-on-surface/80 text-sm md:text-base mb-10 leading-relaxed font-semibold">
+                        Odkryj harmonię nowoczesnej architektury i natury. Przestrzeń zaprojektowana z myślą o Twoim komforcie i spokoju ducha.
+                    </p>
+<div class="flex gap-4">
+<button class="primary-gradient-bg text-on-primary px-10 py-5 rounded-lg font-label text-[12px] font-bold tracking-widest shadow-xl shadow-primary/30 uppercase transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95">
+                            ZOBACZ PROJEKT
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Premium Feature Cards Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+<div class="text-center space-y-6">
+<div class="flex justify-center mb-8">
+<div class="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center text-[#D44E98]">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1">verified</span>
+</div>
+</div>
+<h3 class="font-headline text-xl font-bold text-on-surface tracking-tight">Standard</h3>
+<p class="text-secondary text-sm leading-relaxed max-w-xs mx-auto">Najwyższa jakość materiałów i nowoczesne systemy energooszczędne w każdym domu.</p>
+</div>
+<div class="text-center space-y-6 border-x border-surface-variant/30 px-8">
+<div class="flex justify-center mb-8">
+<div class="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center text-[#D44E98]">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1">location_on</span>
+</div>
+</div>
+<h3 class="font-headline text-xl font-bold text-on-surface tracking-tight">Lokalizacja</h3>
+<p class="text-secondary text-sm leading-relaxed max-w-xs mx-auto">Znakomite skomunikowanie z centrum przy zachowaniu pełnej prywatności i ciszy.</p>
+</div>
+<div class="text-center space-y-6">
+<div class="flex justify-center mb-8">
+<div class="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center text-[#D44E98]">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1">architecture</span>
+</div>
+</div>
+<h3 class="font-headline text-xl font-bold text-on-surface tracking-tight">Design</h3>
+<p class="text-secondary text-sm leading-relaxed max-w-xs mx-auto">Minimalistyczna bryła i funkcjonalne wnętrza tworzące idealną przestrzeń do życia.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Gallery Section -->
+<section class="py-24 md:py-32 bg-surface">
+<div class="max-w-7xl mx-auto px-8 relative">
+<div class="absolute -top-16 left-8 z-0">
+<span class="font-headline text-[8rem] md:text-[12rem] font-extrabold text-primary/5 select-none leading-none">
+                        Wnętrze
+                    </span>
+</div>
+<div class="relative z-10 text-center mb-16">
+<h2 class="font-headline text-3xl md:text-4xl font-bold tracking-tight text-on-surface">Odkryj Swoją Przestrzeń</h2>
+<div class="w-20 h-1 bg-[#D44E98] mx-auto mt-4 rounded-full"></div>
+</div>
+<div class="relative rounded-xl overflow-hidden aspect-video shadow-2xl group">
+<img alt="Main Interior Gallery" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uhfGygIUrHXVRsasTjlQ5A-Z8evH7OsNwuA0gY_7IDwhzCPdzPTdj4WqCqm6dq1yBAKKtu-GDStq33q8umJl9E9QwuliYjPxrZQqFEuGynTtBTP2S1eTAzV-cox9-oBWi8jgVz8S9MAMiBA8oW0TZTzEulV7PepMMkgDHm8GPq5zPQADBjzuoI_RpA2wfVmL7pTbxCawZ2GWthOMheQxMY3lAZqxWH7Lmir3vza1YWaqgjEUq-46B6O8CZCYaQZDtJBEFLZ7BItFA"/>
+<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-12">
+<p class="text-white font-label tracking-widest text-sm font-medium">ELEWACJA FRONTOWA • NOWOCZESNY DESIGN</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Lifestyle Section -->
+<section class="py-32 bg-surface-container-low overflow-hidden">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
+<div class="md:col-span-5 space-y-12">
+<div>
+<h3 class="font-headline text-xs font-bold tracking-widest text-[#D44E98] mb-4 uppercase">LOKALIZACJA</h3>
+<h2 class="font-headline text-4xl font-extrabold text-on-surface leading-tight">Spokój, na który <br/>zasługujesz.</h2>
+<p class="mt-8 text-secondary leading-relaxed text-base">
+                                Dom w Cyklamenach to nie tylko budynek. To starannie wybrana lokalizacja, która łączy bliskość miejskich udogodnień z kojącym dotykiem natury.
+                            </p>
+</div>
+<div class="space-y-10">
+<div class="flex gap-6 group">
+<div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-[#D44E98] shadow-sm group-hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-3xl">nature_people</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface text-lg">Parki i Rekreacja</h4>
+<p class="text-secondary text-sm mt-2">Tylko 5 minut spacerem do najbliższego parku krajobrazowego.</p>
+</div>
+</div>
+<div class="flex gap-6 group">
+<div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-[#D44E98] shadow-sm group-hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-3xl">shopping_bag</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface text-lg">Zakupy i Usługi</h4>
+<p class="text-secondary text-sm mt-2">Lokalne delikatesy i butiki w zasięgu ręki.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 relative">
+<div class="grid grid-cols-2 gap-6">
+<div class="pt-16">
+<img alt="Modern Architecture Interior" class="w-full aspect-[4/5] object-cover rounded-2xl shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALDH0C_EtAUv8F2AirDKimRYVTTTo_hzohiao5dqxW6y6Ngl-PgtQ150gSuV0WvmnIq70aeiG-KkD7X6Do3AIHQNcaDbKYL4BtjJRB7I4tR09rMF1n0SX995zhNFXBkwUKGd_d7A7J6RApJlT-7PrEPr_loidTV4cpHPfNhC2ufaP70NogaWYznpDoidvMPRSXpUPIoZKfB9QIvpvO_g8aZZmTEdy2Otsap2MW65p8Ol0XqMnsTpfOxPVtwju5BzWrUxSOtkU6yuI"/>
+</div>
+<div>
+<img alt="Luxury Living Detail" class="w-full aspect-[4/5] object-cover rounded-2xl shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0onJUAHwvh88y8Mrj5aHPH2GrTK4jOdy1lbc2uiufTRmgWIyYixFdYDpcMWM8yFeWBxoOts_5rFNG_0C51PUtmNt1ASQxbGjGqIVSCHs-lrulqf6FDAACh08SbV212qUxU6VFT-JTpAMn-YJEzcqv0lvi04HcZJCMqr_dr_bW2HOAZ262ocKKm08nLaOIymGLMnESspr1TSjFE9LUtZM1uTTEYi2UGd0pHAqIbNQUtlKVTRQxLB_MtrO627lVCClRLK7lQVEKKQ4"/>
+</div>
+</div>
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Booking Section -->
+<section class="py-32 md:py-48 bg-surface">
+<div class="max-w-4xl mx-auto px-8">
+<div class="bg-white p-12 md:p-24 rounded-2xl shadow-2xl shadow-on-surface/5 border border-surface-variant/30 text-center">
+<h2 class="font-headline text-4xl font-extrabold text-on-surface mb-6">Zrób pierwszy krok</h2>
+<p class="text-secondary mb-16 text-lg">Zostaw swoje dane, a nasz doradca skontaktuje się z Tobą w ciągu 24 godzin.</p>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
+<div class="space-y-3">
+<label class="font-label text-xs tracking-widest text-secondary uppercase font-bold">Imię i Nazwisko</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:ring-0 focus:border-[#D44E98] transition-colors py-4 px-0 text-on-surface placeholder:text-surface-dim font-medium" placeholder="Jan Kowalski" type="text"/>
+</div>
+<div class="space-y-3">
+<label class="font-label text-xs tracking-widest text-secondary uppercase font-bold">Telefon</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:ring-0 focus:border-[#D44E98] transition-colors py-4 px-0 text-on-surface placeholder:text-surface-dim font-medium" placeholder="+48 000 000 000" type="tel"/>
+</div>
+<div class="md:col-span-2 space-y-3 pt-6">
+<label class="font-label text-xs tracking-widest text-secondary uppercase font-bold">Wiadomość (opcjonalnie)</label>
+<textarea class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:ring-0 focus:border-[#D44E98] transition-colors py-4 px-0 text-on-surface placeholder:text-surface-dim font-medium" placeholder="Jak możemy Ci pomóc?" rows="2"></textarea>
+</div>
+<div class="md:col-span-2 pt-12">
+<button class="w-full primary-gradient-bg text-on-primary py-6 rounded-xl font-label font-bold tracking-[0.25em] shadow-xl shadow-primary/30 active:scale-[0.98] transition-all text-xs" type="submit">
+                                ZAMAWIAM KONTAKT
+                            </button>
+</div>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-surface-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16 px-8 py-24 max-w-7xl mx-auto">
+<div class="space-y-8">
+<div class="relative inline-block">
+<div class="text-xl font-headline font-extrabold text-on-surface uppercase">DOM W CYKLAMENACH</div>
+<div class="h-0.5 w-full bg-[#D44E98] mt-0.5"></div>
+</div>
+<p class="font-body text-secondary leading-relaxed text-sm">Tworzymy miejsca, które inspirują do lepszego życia. Architektura z duszą, zaprojektowana dla Twojego komfortu.</p>
+</div>
+<div class="space-y-8">
+<h4 class="font-label text-xs font-bold tracking-widest text-[#D44E98] uppercase">NAWIGACJA</h4>
+<ul class="space-y-5">
+<li><a class="font-body text-sm text-secondary hover:text-[#D44E98] transition-colors" href="#">Dane kontaktowe</a></li>
+<li><a class="font-body text-sm text-secondary hover:text-[#D44E98] transition-colors" href="#">Lokalizacja na mapie</a></li>
+<li><a class="font-body text-sm text-secondary hover:text-[#D44E98] transition-colors" href="#">Polityka prywatności</a></li>
+</ul>
+</div>
+<div class="space-y-8">
+<h4 class="font-label text-xs font-bold tracking-widest text-[#D44E98] uppercase">BIURO SPRZEDAŻY</h4>
+<div class="space-y-5 font-body text-sm text-secondary">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-xl text-[#D44E98]">location_on</span>
+<span class="leading-tight">ul. Kwiatowa 12,<br/>00-001 Warszawa</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-xl text-[#D44E98]">call</span>
+<span>+48 123 456 789</span>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 py-12 border-t border-surface-variant/20 flex flex-col md:flex-row justify-between items-center gap-8">
+<p class="font-body text-[13px] text-secondary">© 2024 Dom w Cyklamenach. Wszelkie prawa zastrzeżone.</p>
+<div class="flex gap-8 text-secondary/60">
+<span class="material-symbols-outlined hover:text-[#D44E98] cursor-pointer transition-colors text-xl">public</span>
+<span class="material-symbols-outlined hover:text-[#D44E98] cursor-pointer transition-colors text-xl">mail</span>
+<span class="material-symbols-outlined hover:text-[#D44E98] cursor-pointer transition-colors text-xl">share</span>
+</div>
+</div>
+</footer>
+</body></html>
