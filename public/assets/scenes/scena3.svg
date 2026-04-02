@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 2752 1536">
+
+<!--
+  Nakładanie na obrazek:
+
+  <div style="position:relative">
+    <img src="twoj-obraz.png" style="width:100%">
+    <svg viewBox="0 0 2752 1536"
+         style="position:absolute;top:0;left:0;width:100%;height:100%">
+      ...wklej polygony...
+    </svg>
+  </div>
+-->
+
+  <polygon
+    id="mieszkanie-a2"
+    points="699,650 408,650 408,926 703,924"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a3"
+    points="378,953 372,1329 797,1329 795,1037 695,950"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a4"
+    points="1323,1049 1320,1342 1133,1338 1125,1048"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a5"
+    points="840,305 846,623 367,623 367,305"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a5"
+    points="1113,1048 1111,1338 813,1338 813,1048"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a6"
+    points="860,278 864,621 899,621 989,761 1327,763 1325,274"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a7"
+    points="1037,783 1037,1031 804,1033 719,950 713,641 895,641 982,783"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a8"
+    points="1322,781 1325,1042 1040,1029 1042,781"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a9"
+    points="1278,218 831,214 833,104 1278,105"
+    fill="#e879f9"
+    fill-opacity="0"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+</svg>

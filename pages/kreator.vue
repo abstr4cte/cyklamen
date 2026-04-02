@@ -21,15 +21,54 @@
               
               <!-- House Image with Interactive SVG -->
               <div class="relative flex items-center justify-center flex-1 overflow-hidden">
-                <img 
-                  :src="currentScene === 1 ? '/assets/scenes/scena1.png' : '/assets/scenes/scena2.png'"
+                <!-- Floor Legend - Top Right -->
+                <div v-if="currentScene === 3" class="absolute top-6 right-6 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border-2 border-surface-variant/40 p-4 z-20">
+                  <div class="space-y-3 text-sm font-label">
+                    <div class="flex items-center gap-3">
+                      <div class="w-7 h-7 rounded border-2 border-on-surface flex items-center justify-center text-sm font-bold">1</div>
+                      <span class="font-bold tracking-wider text-base">PARTER</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <div class="w-7 h-7 rounded border-2 border-primary bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">2</div>
+                      <span class="font-bold tracking-wider text-base text-primary">PODDASZE</span>
+                    </div>
+                    <div class="pt-3 border-t border-surface-variant/40">
+                      <button 
+                        @click="playTechnicalPlan"
+                        class="flex items-center gap-2 text-on-surface hover:text-primary transition-colors"
+                      >
+                        <span class="material-symbols-outlined text-lg">edit_square</span>
+                        <span class="font-bold tracking-wide text-xs">ZOBACZ RZUT TECHNICZNY (2D)</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Regular image (always present to maintain layout) -->
+                <img
+                  :src="currentScene === 1 ? '/assets/scenes/scena1.png' : currentScene === 2 ? '/assets/scenes/scena2.png' : currentScene === 3 ? '/assets/scenes/scena3.png' : '/assets/scenes/scena4.png'"
                   alt="Dom w Cyklamenach"
                   class="max-w-full max-h-full object-contain"
                 />
                 
+                <!-- Video overlay (appears on top when playing) -->
+                <transition name="fade">
+                  <video
+                    v-if="isVideoPlaying"
+                    ref="videoPlayer"
+                    class="absolute inset-0 w-full h-full object-contain"
+                    style="will-change: opacity;"
+                    @ended="onVideoEnd"
+                    autoplay
+                    muted
+                  >
+                    <source :src="currentVideoSrc" type="video/mp4" />
+                  </video>
+                </transition>
+                
                 <!-- SVG Overlay for Scene 1 -->
                 <svg 
-                  v-if="currentScene === 1"
+                  v-if="currentScene === 1 && !isVideoPlaying"
                   viewBox="0 0 2752 1536"
                   class="absolute top-0 left-0 w-full h-full"
                   style="pointer-events: none;"
@@ -51,7 +90,7 @@
                 </svg>
                 
                 <!-- Info Tooltip for Scene 1 -->
-                <div v-if="currentScene === 1">
+                <div v-if="currentScene === 1 && !isVideoPlaying">
                   <transition name="fade">
                     <div 
                       v-if="hoveredArea === 1"
@@ -70,7 +109,7 @@
                 
                 <!-- SVG Overlay for Scene 2 -->
                 <svg 
-                  v-if="currentScene === 2"
+                  v-if="currentScene === 2 && !isVideoPlaying"
                   viewBox="0 0 2752 1536"
                   class="absolute top-0 left-0 w-full h-full"
                   style="pointer-events: none;"
@@ -87,7 +126,7 @@
                     style="pointer-events: auto;"
                     @mouseenter="hoveredArea = 2"
                     @mouseleave="hoveredArea = null"
-                    @click="selectSegment('left')"
+                    @click="playVideoForSegment('left')"
                   />
                   
                   <polygon
@@ -105,8 +144,151 @@
                   />
                 </svg>
                 
+                <!-- SVG Overlay for Scene 3 -->
+                <svg 
+                  v-if="currentScene === 3 && !isVideoPlaying"
+                  viewBox="0 0 2752 1536"
+                  class="absolute top-0 left-0 w-full h-full"
+                  style="pointer-events: none;"
+                >
+                  <polygon
+                    id="mieszkanie-a2"
+                    points="699,650 408,650 408,926 703,924"
+                    :fill="hoveredArea === 4 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 4 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 4"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a2')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a3"
+                    points="378,953 372,1329 797,1329 795,1037 695,950"
+                    :fill="hoveredArea === 5 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 5 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 5"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a3')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a4"
+                    points="1323,1049 1320,1342 1133,1338 1125,1048"
+                    :fill="hoveredArea === 6 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 6 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 6"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a4')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a5-top"
+                    points="840,305 846,623 367,623 367,305"
+                    :fill="hoveredArea === 7 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 7 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 7"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a5-top')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a5-bottom"
+                    points="1113,1048 1111,1338 813,1338 813,1048"
+                    :fill="hoveredArea === 8 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 8 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 8"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a5-bottom')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a6"
+                    points="860,278 864,621 899,621 989,761 1327,763 1325,274"
+                    :fill="hoveredArea === 9 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 9 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 9"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a6')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a7"
+                    points="1037,783 1037,1031 804,1033 719,950 713,641 895,641 982,783"
+                    :fill="hoveredArea === 10 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 10 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 10"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a7')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a8"
+                    points="1322,781 1325,1042 1040,1029 1042,781"
+                    :fill="hoveredArea === 11 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 11 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 11"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a8')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a9"
+                    points="1278,218 831,214 833,104 1278,105"
+                    :fill="hoveredArea === 12 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 12 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 12"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a9')"
+                  />
+                </svg>
+                
                 <!-- Info Tooltips for Scene 2 -->
-                <div v-if="currentScene === 2">
+                <div v-if="currentScene === 2 && !isVideoPlaying">
                   <!-- Left Segment Tooltip -->
                   <transition name="fade">
                     <div 
@@ -161,6 +343,195 @@
                     </div>
                   </transition>
                 </div>
+                
+                <!-- Info Tooltips for Scene 3 -->
+                <div v-if="currentScene === 3 && !isVideoPlaying">
+                  <!-- Pokój dzienny -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 4"
+                      class="absolute left-[18%] top-[52%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Łazienka
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">8.5 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Wanna</div>
+                        <div>• Prysznic</div>
+                        <div>• Okno</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Salon z jadalnią -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 5"
+                      class="absolute left-[20%] top-[72%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Pokój 2
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">12.2 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Duże okno</div>
+                        <div>• Miejsce na biurko</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Łazienka -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 6"
+                      class="absolute left-[44%] top-[72%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Garderoba
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">4.8 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Szafy wnękowe</div>
+                        <div>• Lustro</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Przedpokój -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 7"
+                      class="absolute left-[20%] top-[32%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Pokój 1
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">5.2 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Okno</div>
+                        <div>• Idealne na gabinet</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Garderoba -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 8"
+                      class="absolute left-[35%] top-[72%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Pokój 3
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">3.5 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Pokój dziecięcy</div>
+                        <div>• Regały</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Sypialnia -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 9"
+                      class="absolute left-[40%] top-[35%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Sypialnia
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">10.5 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Drzwi balkonowe</div>
+                        <div>• Złącze do klimatyzacji</div>
+                        <div>• Skosy od wys. 140cm</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Kuchnia -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 10"
+                      class="absolute left-[30%] top-[58%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Przedpokój
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">6.8 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Szafa wnękowa</div>
+                        <div>• Domofon</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Pokój 2 -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 11"
+                      class="absolute left-[45%] top-[58%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Pokój 2
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">7.2 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Skosy</div>
+                        <div>• Okno dachowe</div>
+                      </div>
+                    </div>
+                  </transition>
+                  
+                  <!-- Balkon -->
+                  <transition name="fade">
+                    <div 
+                      v-if="hoveredArea === 12"
+                      class="absolute left-[38%] top-[12%] bg-white/70 backdrop-blur-md p-2 rounded-xl shadow-xl border-2 border-[#e879f9] z-10"
+                      style="pointer-events: none;"
+                    >
+                      <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
+                        Balkon
+                      </h3>
+                      <div class="text-xs font-body text-on-surface mb-1">2.3 m²</div>
+                      <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
+                        <div>• Ekspozycja południowa</div>
+                      </div>
+                    </div>
+                  </transition>
+                </div>
+                
+                <!-- Technical Plan Overlay - Scene 4 -->
+                <transition name="plan-fade">
+                  <div 
+                    v-if="currentScene === 4"
+                    class="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-30"
+                    @click="goToScene(3)"
+                  >
+                    <button 
+                      @click="goToScene(3)"
+                      class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md flex items-center justify-center transition-colors z-40"
+                    >
+                      <span class="material-symbols-outlined text-white text-2xl">close</span>
+                    </button>
+                    <div class="max-w-5xl max-h-[90vh]" @click.stop>
+                      <img 
+                        src="/assets/scenes/rzut.png" 
+                        alt="Rzut techniczny"
+                        class="w-full h-full object-contain"
+                      />
+                    </div>
+                  </div>
+                </transition>
               </div>
               
               <!-- Bottom Controls -->
@@ -184,6 +555,16 @@
                       class="w-6 h-0.5 rounded-full transition-colors"
                       :class="currentScene === 2 ? 'bg-primary' : 'bg-outline-variant/30'"
                     ></button>
+                    <button 
+                      @click="goToScene(3)"
+                      class="w-6 h-0.5 rounded-full transition-colors"
+                      :class="currentScene === 3 ? 'bg-primary' : 'bg-outline-variant/30'"
+                    ></button>
+                    <button 
+                      @click="goToScene(4)"
+                      class="w-6 h-0.5 rounded-full transition-colors"
+                      :class="currentScene === 4 ? 'bg-primary' : 'bg-outline-variant/30'"
+                    ></button>
                   </div>
                   <button 
                     @click="goToScene(2)" 
@@ -191,6 +572,20 @@
                     :class="{ 'bg-surface-container-low': currentScene === 2 }"
                   >
                     <span class="material-symbols-outlined text-xl">filter_2</span>
+                  </button>
+                  <button 
+                    @click="goToScene(3)" 
+                    class="p-1.5 hover:bg-surface-container-low rounded-lg transition-colors"
+                    :class="{ 'bg-surface-container-low': currentScene === 3 }"
+                  >
+                    <span class="material-symbols-outlined text-xl">filter_3</span>
+                  </button>
+                  <button 
+                    @click="goToScene(4)" 
+                    class="p-1.5 hover:bg-surface-container-low rounded-lg transition-colors"
+                    :class="{ 'bg-surface-container-low': currentScene === 4 }"
+                  >
+                    <span class="material-symbols-outlined text-xl">filter_4</span>
                   </button>
                 </div>
                 
@@ -348,16 +743,93 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const currentScene = ref<1 | 2>(1)
+const currentScene = ref<1 | 2 | 3 | 4>(1)
 const hoveredArea = ref<number | null>(null)
 const selectedSegment = ref<'left' | 'right' | null>(null)
 const activeView = ref<'plot' | 'ground' | 'first'>('ground')
+const isVideoPlaying = ref(false)
+const videoPlayer = ref<HTMLVideoElement | null>(null)
+const sceneBeforeVideo = ref<1 | 2 | 3 | 4>(1)
+const currentVideoSrc = ref('/assets/scenes/film1.mp4')
 
-const goToScene = (sceneNumber: 1 | 2) => {
-  currentScene.value = sceneNumber
+const goToScene = (sceneNumber: 1 | 2 | 3 | 4) => {
+  if (sceneNumber === 2 && currentScene.value === 1) {
+    // Play video before transitioning to scene 2
+    sceneBeforeVideo.value = 1
+    currentVideoSrc.value = '/assets/scenes/film1.mp4'
+    isVideoPlaying.value = true
+  } else {
+    currentScene.value = sceneNumber
+  }
+}
+
+const playVideoForSegment = (segment: 'left' | 'right') => {
+  if (segment === 'left') {
+    // Play film2 before showing segment details
+    sceneBeforeVideo.value = 2
+    currentVideoSrc.value = '/assets/scenes/film2.mp4'
+    isVideoPlaying.value = true
+  }
+}
+
+const playTechnicalPlan = () => {
+  // Play film3 for technical plan
+  sceneBeforeVideo.value = 3
+  currentVideoSrc.value = '/assets/scenes/film3.mp4'
+  isVideoPlaying.value = true
+}
+
+const onVideoEnd = () => {
+  if (sceneBeforeVideo.value === 1) {
+    // Coming from scene 1, go to scene 2
+    currentScene.value = 2
+  } else if (sceneBeforeVideo.value === 2) {
+    // Coming from scene 2, go to scene 3
+    currentScene.value = 3
+  } else if (sceneBeforeVideo.value === 3) {
+    // Coming from scene 3 (technical plan), go to scene 4
+    currentScene.value = 4
+  }
+  // Then fade out video
+  setTimeout(() => {
+    isVideoPlaying.value = false
+  }, 50)
 }
 
 const selectSegment = (segment: 'left' | 'right') => {
   selectedSegment.value = segment
 }
+
+const selectApartment = (apartment: string) => {
+  console.log('Selected apartment:', apartment)
+  // TODO: Add apartment selection logic
+}
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.plan-fade-enter-active {
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backface-visibility: hidden;
+}
+.plan-fade-leave-active {
+  transition: all 0.4s ease;
+  backface-visibility: hidden;
+}
+.plan-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.8) translateZ(0);
+}
+.plan-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.95) translateZ(0);
+}
+</style>
