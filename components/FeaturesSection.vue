@@ -1,6 +1,9 @@
 <template>
-  <section class="py-32 bg-surface">
-    <div class="max-w-7xl mx-auto px-8">
+  <section class="relative py-32 bg-surface">
+    <!-- Gradient overlay at top for smooth transition from hero -->
+    <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-surface/50 to-surface z-0"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
         <!-- Standard -->
         <div class="text-center space-y-6">
