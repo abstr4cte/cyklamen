@@ -1,14 +1,18 @@
 <template>
-  <section class="relative min-h-screen flex items-center justify-start overflow-hidden">
+  <section class="relative min-h-screen flex items-center justify-start overflow-hidden mt-[88px]">
     <div class="absolute inset-0 z-0">
-      <img 
-        alt="Dom w Cyklamenach Hero" 
+      <video 
         class="w-full h-full object-cover" 
-        src="https://lh3.googleusercontent.com/aida/ADBb0ujy_NCKo9OTLCJ5T08usT1HzjSBPI3cAdgEIcYr1vN_cDf9ldUKdOZZkDe98X5eoDNzioM-1AT-0m0Ay4n6xrmiuedRpYmmsgTTmaNts5RVSS2cZ1a-dDnMRXKHcbnR4CWpOVDOiRH6DNFwdvesre8qD9PzorPx2RslkfFkYsWrw_KRolyKS5JcvqQ05pfZ4JFpH_Z-w5lZ1nDLsydzVQyHqFcJBbt9v5iUWIAw4ZEhN_mMAMb9ijA3a13LwtzL_FW0qx7mAxqNiA"
-      />
+        autoplay 
+        loop 
+        muted 
+        playsinline
+      >
+        <source src="/assets/layout/banner.mp4" type="video/mp4" />
+      </video>
     </div>
     
-    <div class="relative z-10 w-full max-w-7xl px-8 md:px-16 mt-20">
+    <div class="relative z-10 w-full max-w-7xl px-8 md:px-16">
       <div class="w-full max-w-[480px] hero-glass-box p-10 md:p-14 rounded-xl shadow-xl">
         <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-6 leading-[1.1]">
           Twój nowy rozdział <br><span class="text-[#D44E98]">zaczyna się tutaj.</span>

@@ -1,25 +1,25 @@
 <template>
   <nav class="fixed top-0 z-50 w-full bg-white px-8 py-6 flex justify-between items-center border-b border-surface-variant/20">
-    <div class="relative group cursor-pointer">
+    <NuxtLink to="/" class="relative group cursor-pointer">
       <div class="text-xl font-headline font-extrabold tracking-tight text-on-surface uppercase">
         DOM W CYKLAMENACH
       </div>
       <div class="h-0.5 w-full bg-[#D44E98] mt-0.5"></div>
-    </div>
+    </NuxtLink>
     
     <div class="hidden md:flex gap-10 items-center">
-      <a 
-        class="font-label text-sm tracking-widest text-[#D44E98] border-b-2 border-[#D44E98] pb-1" 
-        href="#"
+      <NuxtLink 
+        to="/"
+        class="font-label text-sm tracking-widest text-secondary hover:text-[#D44E98] transition-colors duration-300"
       >
-        Lokalizacja
-      </a>
-      <a 
-        class="font-label text-sm tracking-widest text-secondary hover:text-[#D44E98] transition-colors duration-300" 
-        href="#"
+        Strona główna
+      </NuxtLink>
+      <NuxtLink 
+        to="/kreator"
+        class="font-label text-sm tracking-widest text-secondary hover:text-[#D44E98] transition-colors duration-300"
       >
-        Galeria
-      </a>
+        Kreator
+      </NuxtLink>
       <a 
         class="font-label text-sm tracking-widest text-secondary hover:text-[#D44E98] transition-colors duration-300" 
         href="#"

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 2752 1536">
+
+<!--
+  Nakładanie na obrazek:
+
+  <div style="position:relative">
+    <img src="twoj-obraz.png" style="width:100%">
+    <svg viewBox="0 0 2752 1536"
+         style="position:absolute;top:0;left:0;width:100%;height:100%">
+      ...wklej polygony...
+    </svg>
+  </div>
+-->
+
+  <polygon
+    id="polygon-1"
+    points="1395,1213 1394,393 1367,393 1366,364 1330,365 1330,365 1330,392 747,394 577,767 577,767 575,782 583,782 581,794 694,795 702,1177 864,1184 864,1184 889,1192 889,1192 887,1203 902,1204 898,1208 898,1222 1111,1219 1117,1210"
+    fill="#c9a84c"
+    fill-opacity="0"
+    stroke="#c9a84c"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a2"
+    points="1397,1212 1395,393 1417,393 1417,364 1453,364 1453,393 2034,391 2210,760 2210,776 2202,782 2196,792 2095,793 2091,1175 1877,1174 1877,1193 1889,1206 1890,1218 1679,1218 1672,1209 1475,1209"
+    fill="#c9a84c"
+    fill-opacity="0"
+    stroke="#c9a84c"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+</svg>
