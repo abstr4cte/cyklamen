@@ -25,6 +25,8 @@
           muted 
           playsinline
           preload="auto"
+          poster="/assets/layout/paralax_poster.jpg"
+          crossorigin="anonymous"
         >
           <source src="/assets/layout/paralax_optimized.mp4" type="video/mp4" />
         </video>
