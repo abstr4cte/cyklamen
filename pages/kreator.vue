@@ -60,8 +60,7 @@
                 <img
                   :src="backgroundScene === 1 ? '/assets/scenes/scena1.png' : backgroundScene === 2 ? '/assets/scenes/scena2.png' : backgroundScene === 3 ? '/assets/scenes/scena3.png' : '/assets/scenes/scena4.png'"
                   alt="Dom w Cyklamenach"
-                  class="max-w-full max-h-full object-contain transition-opacity duration-300"
-                  :class="isVideoPlaying ? 'opacity-0' : 'opacity-100'"
+                  class="max-w-full max-h-full object-contain"
                 />
                 
                 <!-- Video overlay (appears on top when playing) -->
