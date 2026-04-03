@@ -24,9 +24,9 @@
           Odkryj harmonię nowoczesnej architektury i natury. Przestrzeń zaprojektowana z myślą o Twoim komforcie i spokoju ducha.
         </p>
         <div class="flex gap-4">
-          <button class="primary-gradient-bg text-on-primary px-10 py-5 rounded-lg font-label text-[12px] font-bold tracking-widest shadow-xl shadow-primary/30 uppercase transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95">
-            ZOBACZ PROJEKT
-          </button>
+          <a href="/kreator" class="primary-gradient-bg text-on-primary px-10 py-5 rounded-lg font-label text-[12px] font-bold tracking-widest shadow-xl shadow-primary/30 uppercase transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95 inline-block">
+            POZNAJ WNĘTRZE
+          </a>
         </div>
       </div>
     </div>

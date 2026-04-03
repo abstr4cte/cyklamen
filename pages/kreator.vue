@@ -1,18 +1,30 @@
 <template>
-  <div class="bg-surface min-h-screen">
+  <div class="bg-gradient-to-br from-surface to-surface-variant/30 min-h-screen overflow-hidden">
     <TheNavigation />
     
-    <div class="pt-20 pb-4">
-      <div class="container mx-auto px-4 h-[calc(100vh-6rem)]">
-        <!-- Page Title -->
-        <h1 class="font-headline text-xl md:text-2xl font-extrabold text-on-surface mb-3">
-          Wybierz swój dom w Cyklamenach
-        </h1>
-        
-        <div class="grid grid-cols-1 gap-3 h-[calc(100%-3.5rem)]">
-          <!-- House Stage - Full Width -->
-          <div class="w-full h-full">
-            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-surface-variant/20 h-full flex flex-col">
+    <div class="pt-24 pb-6 h-screen flex flex-col">
+      <div class="container mx-auto px-4 flex-1 flex flex-col min-h-0 max-w-6xl">
+        <div class="bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-white/40 flex-1 flex flex-col min-h-0 overflow-hidden relative">
+          <!-- Background decorative elements -->
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+          <!-- Wizard Header -->
+          <div class="px-8 pt-6 pb-4 border-b border-surface-variant/10 flex items-center justify-between bg-white/30">
+            <h1 class="font-headline text-xl md:text-2xl font-bold text-on-surface tracking-tight">
+              Konfigurator Domu w <span class="text-primary">Cyklamenach</span>
+            </h1>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span class="text-[10px] font-label font-bold tracking-widest text-primary uppercase">Tryb Interaktywny</span>
+            </div>
+          </div>
+          
+          <div class="flex-1 flex flex-col min-h-0 p-4 md:p-6">
+            <div class="grid grid-cols-1 gap-4 flex-1 min-h-0">
+              <!-- House Stage - Full Width -->
+              <div class="w-full h-full min-h-0">
+                <div class="bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-inner border border-surface-variant/10 h-full flex flex-col min-h-0 relative">
               <div class="px-6 pt-3 pb-2">
                 <div class="text-xs font-label tracking-widest text-secondary uppercase">
                   STAGE
@@ -147,13 +159,13 @@
                 <!-- SVG Overlay for Scene 3 -->
                 <svg 
                   v-if="currentScene === 3 && !isVideoPlaying"
-                  viewBox="0 0 2752 1536"
+                  viewBox="0 0 2754 1536"
                   class="absolute top-0 left-0 w-full h-full"
                   style="pointer-events: none;"
                 >
                   <polygon
                     id="mieszkanie-a2"
-                    points="699,650 408,650 408,926 703,924"
+                    points="859,626 865,893 560,893 558,630"
                     :fill="hoveredArea === 4 ? '#D44E98' : '#e879f9'"
                     :fill-opacity="hoveredArea === 4 ? '0.3' : '0.15'"
                     stroke="#e879f9"
@@ -168,7 +180,7 @@
                   
                   <polygon
                     id="mieszkanie-a3"
-                    points="378,953 372,1329 797,1329 795,1037 695,950"
+                    points="948,1240 561,1240 563,910 857,910 946,988"
                     :fill="hoveredArea === 5 ? '#D44E98' : '#e879f9'"
                     :fill-opacity="hoveredArea === 5 ? '0.3' : '0.15'"
                     stroke="#e879f9"
@@ -183,37 +195,7 @@
                   
                   <polygon
                     id="mieszkanie-a4"
-                    points="1323,1049 1320,1342 1133,1338 1125,1048"
-                    :fill="hoveredArea === 6 ? '#D44E98' : '#e879f9'"
-                    :fill-opacity="hoveredArea === 6 ? '0.3' : '0.15'"
-                    stroke="#e879f9"
-                    stroke-width="3"
-                    stroke-linejoin="round"
-                    class="cursor-pointer transition-all"
-                    style="pointer-events: auto;"
-                    @mouseenter="hoveredArea = 6"
-                    @mouseleave="hoveredArea = null"
-                    @click="selectApartment('a4')"
-                  />
-                  
-                  <polygon
-                    id="mieszkanie-a5-top"
-                    points="840,305 846,623 367,623 367,305"
-                    :fill="hoveredArea === 7 ? '#D44E98' : '#e879f9'"
-                    :fill-opacity="hoveredArea === 7 ? '0.3' : '0.15'"
-                    stroke="#e879f9"
-                    stroke-width="3"
-                    stroke-linejoin="round"
-                    class="cursor-pointer transition-all"
-                    style="pointer-events: auto;"
-                    @mouseenter="hoveredArea = 7"
-                    @mouseleave="hoveredArea = null"
-                    @click="selectApartment('a5-top')"
-                  />
-                  
-                  <polygon
-                    id="mieszkanie-a5-bottom"
-                    points="1113,1048 1111,1338 813,1338 813,1048"
+                    points="1235,991 1235,1242 965,1244 966,995"
                     :fill="hoveredArea === 8 ? '#D44E98' : '#e879f9'"
                     :fill-opacity="hoveredArea === 8 ? '0.3' : '0.15'"
                     stroke="#e879f9"
@@ -223,12 +205,42 @@
                     style="pointer-events: auto;"
                     @mouseenter="hoveredArea = 8"
                     @mouseleave="hoveredArea = null"
-                    @click="selectApartment('a5-bottom')"
+                    @click="selectApartment('a4')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a1"
+                    points="994,321 996,614 560,615 565,327"
+                    :fill="hoveredArea === 7 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 7 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 7"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a1')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a5"
+                    points="1395,995 1253,993 1257,1244 1401,1244"
+                    :fill="hoveredArea === 6 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 6 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 6"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a5')"
                   />
                   
                   <polygon
                     id="mieszkanie-a6"
-                    points="860,278 864,621 899,621 989,761 1327,763 1325,274"
+                    points="1419,294 1010,294 1010,610 1037,612 1126,741 1410,741"
                     :fill="hoveredArea === 9 ? '#D44E98' : '#e879f9'"
                     :fill-opacity="hoveredArea === 9 ? '0.3' : '0.15'"
                     stroke="#e879f9"
@@ -243,7 +255,7 @@
                   
                   <polygon
                     id="mieszkanie-a7"
-                    points="1037,783 1037,1031 804,1033 719,950 713,641 895,641 982,783"
+                    points="1166,759 1170,975 963,977 879,904 879,630 1035,632 1119,763"
                     :fill="hoveredArea === 10 ? '#D44E98' : '#e879f9'"
                     :fill-opacity="hoveredArea === 10 ? '0.3' : '0.15'"
                     stroke="#e879f9"
@@ -258,22 +270,7 @@
                   
                   <polygon
                     id="mieszkanie-a8"
-                    points="1322,781 1325,1042 1040,1029 1042,781"
-                    :fill="hoveredArea === 11 ? '#D44E98' : '#e879f9'"
-                    :fill-opacity="hoveredArea === 11 ? '0.3' : '0.15'"
-                    stroke="#e879f9"
-                    stroke-width="3"
-                    stroke-linejoin="round"
-                    class="cursor-pointer transition-all"
-                    style="pointer-events: auto;"
-                    @mouseenter="hoveredArea = 11"
-                    @mouseleave="hoveredArea = null"
-                    @click="selectApartment('a8')"
-                  />
-                  
-                  <polygon
-                    id="mieszkanie-a9"
-                    points="1278,218 831,214 833,104 1278,105"
+                    points="1415,149 1417,241 983,243 983,149"
                     :fill="hoveredArea === 12 ? '#D44E98' : '#e879f9'"
                     :fill-opacity="hoveredArea === 12 ? '0.3' : '0.15'"
                     stroke="#e879f9"
@@ -282,6 +279,21 @@
                     class="cursor-pointer transition-all"
                     style="pointer-events: auto;"
                     @mouseenter="hoveredArea = 12"
+                    @mouseleave="hoveredArea = null"
+                    @click="selectApartment('a8')"
+                  />
+                  
+                  <polygon
+                    id="mieszkanie-a9"
+                    points="1397,757 1401,966 1174,964 1170,757"
+                    :fill="hoveredArea === 11 ? '#D44E98' : '#e879f9'"
+                    :fill-opacity="hoveredArea === 11 ? '0.3' : '0.15'"
+                    stroke="#e879f9"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                    class="cursor-pointer transition-all"
+                    style="pointer-events: auto;"
+                    @mouseenter="hoveredArea = 11"
                     @mouseleave="hoveredArea = null"
                     @click="selectApartment('a9')"
                   />
@@ -373,12 +385,13 @@
                       style="pointer-events: none;"
                     >
                       <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
-                        Pokój 2
+                        Schody
                       </h3>
-                      <div class="text-xs font-body text-on-surface mb-1">12.2 m²</div>
+                      <div class="text-xs font-body text-on-surface mb-1">4.5 m²</div>
                       <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
-                        <div>• Duże okno</div>
-                        <div>• Miejsce na biurko</div>
+                        <div>• Żelbetowe</div>
+                        <div>• Bezpieczne</div>
+                        <div>• Wykończone wg projektu</div>
                       </div>
                     </div>
                   </transition>
@@ -482,12 +495,12 @@
                       style="pointer-events: none;"
                     >
                       <h3 class="font-headline text-sm font-bold text-on-surface mb-1 uppercase">
-                        Pokój 2
+                        Schody
                       </h3>
-                      <div class="text-xs font-body text-on-surface mb-1">7.2 m²</div>
+                      <div class="text-xs font-body text-on-surface mb-1">3.2 m²</div>
                       <div class="text-xs font-body text-secondary leading-tight space-y-0.5">
-                        <div>• Skosy</div>
-                        <div>• Okno dachowe</div>
+                        <div>• Wygodny bieg</div>
+                        <div>• Możliwość podświetlenia</div>
                       </div>
                     </div>
                   </transition>
@@ -535,8 +548,8 @@
               </div>
               
               <!-- Bottom Controls -->
-              <div class="px-6 py-3">
-                <div class="flex items-center justify-center gap-3 text-secondary">
+              <div class="px-6 py-2">
+                <div class="flex items-center justify-center gap-3 text-secondary text-sm">
                   <button 
                     @click="goToScene(1)" 
                     class="p-1.5 hover:bg-surface-container-low rounded-lg transition-colors"
@@ -590,8 +603,8 @@
                 </div>
                 
                 <!-- PDF Download Section -->
-                <div class="mt-3 text-center">
-                  <button class="primary-gradient-bg text-on-primary py-2.5 px-6 rounded-lg font-label text-xs font-bold tracking-[0.2em] uppercase shadow-md shadow-primary/30 hover:scale-105 transition-transform">
+                <div class="mt-2 text-center">
+                  <button class="primary-gradient-bg text-on-primary py-2 px-6 rounded-lg font-label text-[10px] font-bold tracking-[0.2em] uppercase shadow-md shadow-primary/30 hover:scale-105 transition-transform">
                     ZAREZERWUJ TERMIN PREZENTACJI
                   </button>
                 </div>
@@ -732,12 +745,14 @@
                 <span class="material-symbols-outlined text-xl">photo_camera</span>
                 ZOBACZ WIZUALIZACJĘ WNĘTRZA
               </button>
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
+</div>
 </template>
 
 <script setup lang="ts">

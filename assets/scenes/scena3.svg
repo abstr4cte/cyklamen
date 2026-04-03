@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 2752 1536">
+     viewBox="0 0 2754 1536">
 
 <!--
   Nakładanie na obrazek:
 
   <div style="position:relative">
     <img src="twoj-obraz.png" style="width:100%">
-    <svg viewBox="0 0 2752 1536"
+    <svg viewBox="0 0 2754 1536"
          style="position:absolute;top:0;left:0;width:100%;height:100%">
       ...wklej polygony...
     </svg>
@@ -15,10 +15,20 @@
 -->
 
   <polygon
-    id="mieszkanie-a2"
-    points="699,650 408,650 408,926 703,924"
+    id="mieszkanie-a1"
+    points="994,321 996,614 560,615 565,327"
     fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
+    stroke="#e879f9"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    id="mieszkanie-a2"
+    points="859,626 865,893 560,893 558,630"
+    fill="#e879f9"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
@@ -26,9 +36,9 @@
 
   <polygon
     id="mieszkanie-a3"
-    points="378,953 372,1329 797,1329 795,1037 695,950"
+    points="948,1240 561,1240 563,910 857,910 946,988"
     fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
@@ -36,9 +46,9 @@
 
   <polygon
     id="mieszkanie-a4"
-    points="1323,1049 1320,1342 1133,1338 1125,1048"
+    points="1235,991 1235,1242 965,1244 966,995"
     fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
@@ -46,19 +56,9 @@
 
   <polygon
     id="mieszkanie-a5"
-    points="840,305 846,623 367,623 367,305"
+    points="1395,995 1253,993 1257,1244 1401,1244"
     fill="#e879f9"
-    fill-opacity="0"
-    stroke="#e879f9"
-    stroke-width="3"
-    stroke-linejoin="round"
-  />
-
-  <polygon
-    id="mieszkanie-a5"
-    points="1113,1048 1111,1338 813,1338 813,1048"
-    fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
@@ -66,9 +66,9 @@
 
   <polygon
     id="mieszkanie-a6"
-    points="860,278 864,621 899,621 989,761 1327,763 1325,274"
+    points="1419,294 1010,294 1010,610 1037,612 1126,741 1410,741"
     fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
@@ -76,9 +76,9 @@
 
   <polygon
     id="mieszkanie-a7"
-    points="1037,783 1037,1031 804,1033 719,950 713,641 895,641 982,783"
+    points="1166,759 1170,975 963,977 879,904 879,630 1035,632 1119,763"
     fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
@@ -86,9 +86,9 @@
 
   <polygon
     id="mieszkanie-a8"
-    points="1322,781 1325,1042 1040,1029 1042,781"
+    points="1415,149 1417,241 983,243 983,149"
     fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
@@ -96,9 +96,9 @@
 
   <polygon
     id="mieszkanie-a9"
-    points="1278,218 831,214 833,104 1278,105"
+    points="1397,757 1401,966 1174,964 1170,757"
     fill="#e879f9"
-    fill-opacity="0"
+    fill-opacity="0.3"
     stroke="#e879f9"
     stroke-width="3"
     stroke-linejoin="round"
