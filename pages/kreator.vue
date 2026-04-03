@@ -58,7 +58,7 @@
                 
                 <!-- Regular image (always present to maintain layout) -->
                 <img
-                  :src="currentScene === 1 ? '/assets/scenes/scena1.png' : currentScene === 2 ? '/assets/scenes/scena2.png' : currentScene === 3 ? '/assets/scenes/scena3.png' : '/assets/scenes/scena4.png'"
+                  :src="backgroundScene === 1 ? '/assets/scenes/scena1.png' : backgroundScene === 2 ? '/assets/scenes/scena2.png' : backgroundScene === 3 ? '/assets/scenes/scena3.png' : '/assets/scenes/scena4.png'"
                   alt="Dom w Cyklamenach"
                   class="max-w-full max-h-full object-contain"
                 />
@@ -71,6 +71,7 @@
                     class="absolute inset-0 w-full h-full object-contain"
                     style="will-change: opacity;"
                     @ended="onVideoEnd"
+                    @playing="onVideoPlaying"
                     autoplay
                     muted
                   >
@@ -759,12 +760,14 @@
 import { ref } from 'vue'
 
 const currentScene = ref<1 | 2 | 3 | 4>(1)
+const backgroundScene = ref<1 | 2 | 3 | 4>(1)
 const hoveredArea = ref<number | null>(null)
 const selectedSegment = ref<'left' | 'right' | null>(null)
 const activeView = ref<'plot' | 'ground' | 'first'>('ground')
 const isVideoPlaying = ref(false)
 const videoPlayer = ref<HTMLVideoElement | null>(null)
 const currentVideoSrc = ref('/assets/scenes/film1.mp4')
+const targetSceneAfterVideo = ref<1 | 2 | 3 | 4>(1)
 
 // Preload images to avoid flickers
 import { onMounted } from 'vue'
@@ -777,33 +780,36 @@ onMounted(() => {
 
 const goToScene = (sceneNumber: 1 | 2 | 3 | 4) => {
   if (sceneNumber === 2 && currentScene.value === 1) {
-    // Play video before transitioning to scene 2
+    targetSceneAfterVideo.value = 2
     currentVideoSrc.value = '/assets/scenes/film1.mp4'
     isVideoPlaying.value = true
-    currentScene.value = 2 // Update background immediately while video covers it
   } else {
     currentScene.value = sceneNumber
+    backgroundScene.value = sceneNumber
   }
 }
 
 const playVideoForSegment = (segment: 'left' | 'right') => {
   if (segment === 'left') {
-    // Play film2 before showing segment details (stage 3)
+    targetSceneAfterVideo.value = 3
     currentVideoSrc.value = '/assets/scenes/film2.mp4'
     isVideoPlaying.value = true
-    currentScene.value = 3 // Update stage immediately
   }
 }
 
 const playTechnicalPlan = () => {
-  // Play film3 for technical plan (stage 4)
-  currentVideoSrc.value = '/assets/scenes/film3.mp4'
-  isVideoPlaying.value = true
-  currentScene.value = 4 // Update background immediately
+    targetSceneAfterVideo.value = 4
+    currentVideoSrc.value = '/assets/scenes/film3.mp4'
+    isVideoPlaying.value = true
+}
+
+const onVideoPlaying = () => {
+  // Update the image behind the video ONLY once it is actually playing
+  backgroundScene.value = targetSceneAfterVideo.value
 }
 
 const onVideoEnd = () => {
-  // Video finished, just hide it. backgroundScene is already updated.
+  currentScene.value = targetSceneAfterVideo.value
   isVideoPlaying.value = false
 }
 
