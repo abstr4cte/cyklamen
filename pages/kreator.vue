@@ -34,7 +34,7 @@
               <!-- House Image with Interactive SVG -->
               <div class="relative flex items-center justify-center flex-1 overflow-hidden">
                 <!-- Floor Legend - Top Right -->
-                <div v-if="currentScene === 3" class="absolute top-6 right-6 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border-2 border-surface-variant/40 p-4 z-20">
+                <div v-if="currentScene === 3 && !isVideoPlaying" class="absolute top-6 right-6 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border-2 border-surface-variant/40 p-4 z-20">
                   <div class="space-y-3 text-sm font-label">
                     <div class="flex items-center gap-3">
                       <div class="w-7 h-7 rounded border-2 border-on-surface flex items-center justify-center text-sm font-bold">1</div>
@@ -764,15 +764,23 @@ const selectedSegment = ref<'left' | 'right' | null>(null)
 const activeView = ref<'plot' | 'ground' | 'first'>('ground')
 const isVideoPlaying = ref(false)
 const videoPlayer = ref<HTMLVideoElement | null>(null)
-const sceneBeforeVideo = ref<1 | 2 | 3 | 4>(1)
 const currentVideoSrc = ref('/assets/scenes/film1.mp4')
+
+// Preload images to avoid flickers
+import { onMounted } from 'vue'
+onMounted(() => {
+  ['scena1.png', 'scena2.png', 'scena3.png', 'scena4.png'].forEach(img => {
+    const i = new Image()
+    i.src = `/assets/scenes/${img}`
+  })
+})
 
 const goToScene = (sceneNumber: 1 | 2 | 3 | 4) => {
   if (sceneNumber === 2 && currentScene.value === 1) {
     // Play video before transitioning to scene 2
-    sceneBeforeVideo.value = 1
     currentVideoSrc.value = '/assets/scenes/film1.mp4'
     isVideoPlaying.value = true
+    currentScene.value = 2 // Update background immediately while video covers it
   } else {
     currentScene.value = sceneNumber
   }
@@ -780,35 +788,23 @@ const goToScene = (sceneNumber: 1 | 2 | 3 | 4) => {
 
 const playVideoForSegment = (segment: 'left' | 'right') => {
   if (segment === 'left') {
-    // Play film2 before showing segment details
-    sceneBeforeVideo.value = 2
+    // Play film2 before showing segment details (stage 3)
     currentVideoSrc.value = '/assets/scenes/film2.mp4'
     isVideoPlaying.value = true
+    currentScene.value = 3 // Update stage immediately
   }
 }
 
 const playTechnicalPlan = () => {
-  // Play film3 for technical plan
-  sceneBeforeVideo.value = 3
+  // Play film3 for technical plan (stage 4)
   currentVideoSrc.value = '/assets/scenes/film3.mp4'
   isVideoPlaying.value = true
+  currentScene.value = 4 // Update background immediately
 }
 
 const onVideoEnd = () => {
-  if (sceneBeforeVideo.value === 1) {
-    // Coming from scene 1, go to scene 2
-    currentScene.value = 2
-  } else if (sceneBeforeVideo.value === 2) {
-    // Coming from scene 2, go to scene 3
-    currentScene.value = 3
-  } else if (sceneBeforeVideo.value === 3) {
-    // Coming from scene 3 (technical plan), go to scene 4
-    currentScene.value = 4
-  }
-  // Then fade out video
-  setTimeout(() => {
-    isVideoPlaying.value = false
-  }, 50)
+  // Video finished, just hide it. backgroundScene is already updated.
+  isVideoPlaying.value = false
 }
 
 const selectSegment = (segment: 'left' | 'right') => {
