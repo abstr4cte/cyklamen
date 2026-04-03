@@ -153,61 +153,105 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 const videoRef = ref<HTMLVideoElement | null>(null)
 const sectionRef = ref<HTMLElement | null>(null)
 const currentLabel = ref<number | null>(null)
+const isVideoReady = ref(false)
 
 let rafId = 0
 let targetTime = 0
+let isIntersecting = false
+
+const updateProgress = () => {
+  if (!sectionRef.value || !videoRef.value || !isVideoReady.value || !videoRef.value.duration) return
+
+  const rect = sectionRef.value.getBoundingClientRect()
+  const viewportHeight = window.innerHeight
+  const scrollDistance = rect.height - viewportHeight
+  
+  if (scrollDistance <= 0) return
+
+  // Calculate progress between 0 and 1
+  let progress = -rect.top / scrollDistance
+  progress = Math.max(0, Math.min(1, progress))
+  
+  targetTime = progress * videoRef.value.duration
+  
+  const diff = targetTime - videoRef.value.currentTime
+  
+  // Use lerp for smoother video scrubbing
+  // Smaller threshold for smoother final alignment
+  if (Math.abs(diff) > 0.001) {
+    // 0.2 lerp factor provides a good balance between responsiveness and smoothness
+    videoRef.value.currentTime += diff * 0.2
+  }
+  
+  // Update label based on scroll progress
+  if (progress < 0.15) {
+    currentLabel.value = null
+  } else if (progress < 0.3) {
+    currentLabel.value = 1
+  } else if (progress < 0.45) {
+    currentLabel.value = 2
+  } else if (progress < 0.6) {
+    currentLabel.value = 3
+  } else if (progress < 0.75) {
+    currentLabel.value = 4
+  } else if (progress < 0.9) {
+    currentLabel.value = 5
+  } else {
+    currentLabel.value = 6
+  }
+}
 
 const animate = () => {
-  if (sectionRef.value && videoRef.value && videoRef.value.duration) {
-    const rect = sectionRef.value.getBoundingClientRect()
-    const scrollDistance = rect.height - window.innerHeight
-    
-    // Calculate progress between 0 and 1
-    let progress = -rect.top / scrollDistance
-    progress = Math.max(0, Math.min(1, progress))
-    
-    targetTime = progress * videoRef.value.duration
-    
-    const diff = targetTime - videoRef.value.currentTime
-    // Use lerp for smoother video scrubbing
-    if (Math.abs(diff) > 0.01) {
-      // Increased lerp factor to 0.3 for a more responsive, snappier feel
-      videoRef.value.currentTime += diff * 0.3
-    }
-    
-    // Update label based on scroll progress
-    if (progress < 0.15) {
-      currentLabel.value = null // No label at start
-    } else if (progress < 0.3) {
-      currentLabel.value = 1 // SALON Z KOMINKIEM
-    } else if (progress < 0.45) {
-      currentLabel.value = 2 // STREFA RELAKSU
-    } else if (progress < 0.6) {
-      currentLabel.value = 3 // PRZESTRZEŃ DLA RODZINY
-    } else if (progress < 0.75) {
-      currentLabel.value = 4 // WIDOK NA OGRÓD
-    } else if (progress < 0.9) {
-      currentLabel.value = 5 // KOMFORTOWE WNĘTRZE
-    } else {
-      currentLabel.value = 6 // Button at end
-    }
+  if (isIntersecting) {
+    updateProgress()
   }
   rafId = requestAnimationFrame(animate)
 }
 
 onMounted(() => {
   if (videoRef.value) {
-    videoRef.value.addEventListener('loadedmetadata', () => {
-      videoRef.value!.currentTime = 0
-    })
-    // Also try to preload the first frame actively
+    // Standard event listeners for video lifecycle
+    const handleMetadata = () => {
+      isVideoReady.value = true
+      // Trigger one update to set initial state correctly
+      updateProgress()
+    }
+
+    videoRef.value.addEventListener('loadedmetadata', handleMetadata)
+    videoRef.value.addEventListener('canplay', handleMetadata)
+    
+    // In case it's already loaded (cached)
+    if (videoRef.value.readyState >= 1) {
+      handleMetadata()
+    }
+
+    // Attempt to warm up the video pipeline
     videoRef.value.load()
   }
+
+  // Intersection Observer to run the animation only when needed
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        isIntersecting = entry.isIntersecting
+      })
+    },
+    { threshold: 0 }
+  )
+
+  if (sectionRef.value) {
+    observer.observe(sectionRef.value)
+  }
+
   rafId = requestAnimationFrame(animate)
+  
+  // Backup scroll listener to ensure it works even if RAF is throttled
+  window.addEventListener('scroll', updateProgress, { passive: true })
 })
 
 onBeforeUnmount(() => {
   cancelAnimationFrame(rafId)
+  window.removeEventListener('scroll', updateProgress)
 })
 </script>
 
