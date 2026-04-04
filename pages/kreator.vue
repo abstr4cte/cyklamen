@@ -307,13 +307,13 @@ const isHotspotVisible = ref(false)
 
 const roomBadges = [
   { id: 4, name: 'Łazienka', area: '8.5 m²', x: '21%', y: '52%', key: 'bathroom', points: '859,626 865,893 560,893 558,630', features: ['Wanna i prysznic', 'Ogrzewanie podłogowe', 'Wykończenie premium'] },
-  { id: 5, name: 'Schody', area: '4.5 m²', x: '23%', y: '73%', key: 'stairs', points: '948,1240 561,1240 563,910 857,910 946,988', features: ['Wygodny bieg', 'Miejsce na schowek', 'Oświetlenie LED'] },
+  { id: 5, name: 'Pokój 2', area: '4.5 m²', x: '23%', y: '73%', key: 'room2', points: '948,1240 561,1240 563,910 857,910 946,988', features: ['Idealne na pokój gościnny', 'Jasne okno dachowe', 'Ustawne wnętrze'] },
   { id: 6, name: 'Garderoba', area: '4.8 m²', x: '47%', y: '73%', key: 'wardrobe', points: '1395,995 1253,993 1257,1244 1401,1244', features: ['Systemy półkowe', 'Wentylacja', 'Duże lustro'] },
   { id: 7, name: 'Pokój 1', area: '5.2 m²', x: '23%', y: '32%', key: 'room1', points: '994,321 996,614 560,615 565,327', features: ['Duże okno', 'Cicha okolica', 'Internet światłowodowy'] },
   { id: 8, name: 'Pokój 3', area: '3.5 m²', x: '38%', y: '73%', key: 'room3', points: '1235,991 1235,1242 965,1244 966,995', features: ['Pokój dziecięcy', 'Jasne barwy', 'Gniazdka USB'] },
   { id: 9, name: 'Sypialnia', area: '10.5 m²', x: '45%', y: '35%', key: 'bedroom', points: '1419,294 1010,294 1010,610 1037,612 1126,741 1410,741', features: ['Wyjście na balkon', 'Klimatyzacja', 'Strop akustyczny'] },
   { id: 10, name: 'Przedpokój', area: '6.8 m²', x: '33%', y: '58%', key: 'hallway', points: '1166,759 1170,975 963,977 879,904 879,630 1035,632 1119,763', features: ['Domofon', 'Wnęka na szafę', 'Gres polerowany'] },
-  { id: 11, name: 'Schody 2', area: '3.2 m²', x: '48%', y: '58%', key: 'stairs2', points: '1397,757 1401,966 1174,964 1170,757', features: ['Komunikacja pionowa', 'Wykończenie dębowe'] },
+  { id: 11, name: 'Schody', area: '3.2 m²', x: '48%', y: '58%', key: 'stairs', points: '1397,757 1401,966 1174,964 1170,757', features: ['Wygodny ciąg komunikacyjny', 'Wykończenie dębowe', 'Nowoczesne oświetlenie'] },
   { id: 12, name: 'Balkon', area: '2.3 m²', x: '41%', y: '12%', key: 'balcony', points: '1415,149 1417,241 983,243 983,149', features: ['Szklana balustrada', 'Widok na ogród'] },
 ]
 
