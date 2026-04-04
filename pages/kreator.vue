@@ -22,221 +22,195 @@
           
           <div class="flex-1 flex flex-col min-h-0 p-4 md:p-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
+              
               <!-- House Stage -->
-              <!-- House Stage Container (Scrollable on small screens) -->
-              <div class="lg:col-span-9 h-full min-h-0 overflow-x-auto overflow-y-hidden custom-scrollbar">
-                <div class="bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-inner border border-surface-variant/10 h-full min-h-[500px] min-w-[1000px] xl:min-w-0 relative aspect-[2754/1536]">
-                  <!-- Instructional Hint for Horizontal Scroll -->
-                  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 lg:hidden pointer-events-none">
-                    <div class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold tracking-widest px-4 py-2 rounded-full uppercase flex items-center gap-2">
-                       <span class="material-symbols-outlined text-sm">swipe_left</span>
-                       Przesuń, aby zobaczyć cały dom
-                    </div>
-                  </div>
-
-                  <div class="px-6 pt-3 pb-2 absolute top-0 left-0 z-20">
-                    <div class="text-xs font-label tracking-widest text-secondary uppercase">
-                      STAGE: {{ currentScene === 1 ? 'WIDOK ZEWNĘTRZNY' : currentScene === 2 ? 'WYBÓR SEGMENTU' : currentScene === 3 ? 'RZUT KONDYGNACJI' : 'RZUT TECHNICZNY' }}
-                    </div>
-                  </div>
+              <div class="lg:col-span-9 flex flex-col min-h-0 overflow-hidden">
+                <div class="bg-white/50 backdrop-blur-sm rounded-2xl shadow-inner border border-surface-variant/10 flex-1 flex flex-col min-h-0 relative overflow-hidden">
                   
-                  <!-- House Image with Interactive Overlays -->
-                  <div class="relative flex items-center justify-center flex-1 overflow-hidden">
-                    <!-- Floor Legend - Top Right -->
-                    <div v-if="currentScene === 3 && !isVideoPlaying" class="absolute top-6 right-6 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border-2 border-surface-variant/40 p-4 z-20">
-                      <div class="space-y-3 text-sm font-label">
-                        <div class="flex items-center gap-3">
-                          <div class="w-7 h-7 rounded border-2 border-on-surface flex items-center justify-center text-sm font-bold">1</div>
-                          <span class="font-bold tracking-wider text-base">PARTER</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                          <div class="w-7 h-7 rounded border-2 border-primary bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">2</div>
-                          <span class="font-bold tracking-wider text-base text-primary">PODDASZE</span>
-                        </div>
-                        <div class="pt-3 border-t border-surface-variant/40">
-                          <button 
-                            @click="playTechnicalPlan"
-                            class="flex items-center gap-2 text-on-surface hover:text-primary transition-colors"
-                          >
-                            <span class="material-symbols-outlined text-lg">edit_square</span>
-                            <span class="font-bold tracking-wide text-[10px]">ZOBACZ RZUT TECHNICZNY (2D)</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- Regular image (always present to maintain layout) -->
-                    <img
-                      :src="backgroundScene === 1 ? '/assets/scenes/scena1.png' : backgroundScene === 2 ? '/assets/scenes/scena2.png' : backgroundScene === 3 ? '/assets/scenes/scena3.png' : '/assets/scenes/scena4.png'"
-                      alt="Dom w Cyklamenach"
-                      class="max-w-full max-h-full object-contain"
-                    />
-                    
-                    <!-- Video overlay (appears on top when playing) -->
-                    <transition name="fade">
-                      <video
-                        v-if="isVideoPlaying"
-                        ref="videoPlayer"
-                        class="absolute inset-0 w-full h-full object-contain"
-                        @ended="onVideoEnd"
-                        @playing="onVideoPlaying"
-                        autoplay
-                        muted
-                      >
-                        <source :src="currentVideoSrc" type="video/mp4" />
-                      </video>
-                    </transition>
-                    
-                    <!-- Interactive Hotspot for Scene 1 -->
-                    <transition name="fade">
-                      <div 
-                        v-if="currentScene === 1 && !isVideoPlaying && isHotspotVisible"
-                        class="absolute left-[48%] top-[65%] z-20"
-                      >
-                        <div class="relative group">
-                          <div class="absolute -inset-4 bg-primary/40 rounded-full animate-ping opacity-75"></div>
-                          <div class="absolute -inset-8 bg-primary/20 rounded-full animate-pulse opacity-50"></div>
-                          <button 
-                            @click="goToScene(2)"
-                            @mouseenter="hoveredArea = 1"
-                            @mouseleave="hoveredArea = null"
-                            class="relative w-10 h-10 bg-primary rounded-full border-4 border-white shadow-xl flex items-center justify-center transition-transform hover:scale-110 active:scale-95"
-                          >
-                            <span class="material-symbols-outlined text-white text-xl">ads_click</span>
-                          </button>
+                  <!-- House Image Wrapper (Full Immersive) -->
+                  <div class="relative flex-1 min-h-0 overflow-hidden">
+                    <div class="relative w-full h-full">
 
-                          <transition name="tooltip-slide">
-                            <div v-if="hoveredArea === 1" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 w-48 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-primary/20 pointer-events-none">
-                              <div class="text-[10px] font-bold text-primary tracking-widest uppercase mb-1">INTERAKCJA</div>
-                              <div class="text-[13px] font-bold text-on-surface leading-tight">Kliknij, aby poznać wnętrze domu</div>
-                              <div class="absolute top-full left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-r border-b border-primary/20 -translate-y-1.5"></div>
+                        <!-- Floor Legend -->
+                        <div v-if="currentScene === 3 && !isVideoPlaying" class="absolute top-6 right-6 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border-2 border-surface-variant/40 p-4 z-40">
+                          <div class="space-y-3 text-sm font-label">
+                            <div class="flex items-center gap-3">
+                              <div class="w-7 h-7 rounded border-2 border-on-surface flex items-center justify-center text-sm font-bold">1</div>
+                              <span class="font-bold tracking-wider text-base">PARTER</span>
                             </div>
-                          </transition>
+                            <div class="flex items-center gap-3">
+                              <div class="w-7 h-7 rounded border-2 border-primary bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">2</div>
+                              <span class="font-bold tracking-wider text-base text-primary">PODDASZE</span>
+                            </div>
+                            <div class="pt-3 border-t border-surface-variant/40">
+                              <button @click="playTechnicalPlan" class="flex items-center gap-2 text-on-surface hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-lg">edit_square</span>
+                                <span class="font-bold tracking-wide text-[10px]">ZOBACZ RZUT TECHNICZNY (2D)</span>
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </transition>
-
-                    <!-- Interactive Floating Hotspots for Scene 2 -->
-                    <div v-if="currentScene === 2 && !isVideoPlaying" class="absolute inset-0 pointer-events-none">
-                      <div class="absolute left-[30%] top-[45%] pointer-events-auto group translate-x-[-50%] translate-y-[-50%]" @mouseenter="hoveredArea = 2" @mouseleave="hoveredArea = null">
-                        <div @click="playVideoForSegment('left')" class="relative flex flex-col items-center">
-                          <div class="bg-white/90 backdrop-blur-xl rounded-full p-1.5 shadow-2xl border border-white/50 transition-all duration-500 ease-out group-hover:rounded-[2rem] group-hover:p-6 group-hover:w-64 cursor-pointer overflow-hidden max-w-[140px] group-hover:max-w-[300px] border-primary/20">
-                            <div class="flex items-center gap-2 px-2 py-1">
-                              <span class="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)] animate-pulse shrink-0"></span>
-                              <span class="text-[10px] font-bold tracking-widest uppercase text-green-700 whitespace-nowrap">Segment Lewy</span>
+                        
+                        <!-- Regular image -->
+                        <img
+                          :src="backgroundScene === 1 ? '/assets/scenes/scena1.png' : backgroundScene === 2 ? '/assets/scenes/scena2.png' : backgroundScene === 3 ? '/assets/scenes/scena3.png' : '/assets/scenes/scena4.png'"
+                          alt="Dom w Cyklamenach"
+                          class="absolute inset-0 w-full h-full object-cover z-10"
+                        />
+                        
+                        <!-- Video overlay -->
+                        <transition name="fade">
+                          <video
+                            v-if="isVideoPlaying"
+                            ref="videoPlayer"
+                            class="absolute inset-0 w-full h-full object-cover z-20"
+                            @ended="onVideoEnd"
+                            @playing="onVideoPlaying"
+                            autoplay
+                            muted
+                          >
+                            <source :src="currentVideoSrc" type="video/mp4" />
+                          </video>
+                        </transition>
+                        
+                        <!-- Interactive Hotspot for Scene 1 -->
+                        <transition name="fade">
+                          <div v-if="currentScene === 1 && !isVideoPlaying && isHotspotVisible" class="absolute left-[48%] top-[65%] z-30">
+                            <div class="relative group">
+                              <div class="absolute -inset-4 bg-primary/40 rounded-full animate-ping opacity-75"></div>
+                              <div class="absolute -inset-8 bg-primary/20 rounded-full animate-pulse opacity-50"></div>
+                              <button @click="goToScene(2)" @mouseenter="hoveredArea = 1" @mouseleave="hoveredArea = null" class="relative w-10 h-10 bg-primary rounded-full border-4 border-white shadow-xl flex items-center justify-center transition-transform hover:scale-110 active:scale-95">
+                                <span class="material-symbols-outlined text-white text-xl">ads_click</span>
+                              </button>
+                              <transition name="tooltip-slide">
+                                <div v-if="hoveredArea === 1" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 w-48 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-primary/20 pointer-events-none">
+                                  <div class="text-[10px] font-bold text-primary tracking-widest uppercase mb-1">INTERAKCJA</div>
+                                  <div class="text-[13px] font-bold text-on-surface leading-tight">Kliknij, aby poznać wnętrze domu</div>
+                                  <div class="absolute top-full left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-r border-b border-primary/20 -translate-y-1.5"></div>
+                                </div>
+                              </transition>
                             </div>
-                            <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-                              <div class="pt-4 pb-2">
-                                 <div class="flex justify-around mb-4">
-                                    <div class="text-center">
-                                      <div class="text-[10px] text-secondary font-bold uppercase tracking-wider mb-0.5">Powierzchnia</div>
-                                      <div class="text-on-surface font-bold">121 m²</div>
-                                    </div>
-                                    <div class="w-[1px] bg-outline-variant/30"></div>
-                                    <div class="text-center">
-                                      <div class="text-[10px] text-secondary font-bold uppercase tracking-wider mb-0.5">Działka</div>
-                                      <div class="text-on-surface font-bold">310 m²</div>
-                                    </div>
-                                 </div>
-                                 <button class="w-full primary-gradient-bg text-white py-2.5 rounded-xl font-label text-[10px] font-bold tracking-widest uppercase shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
-                                    Odkryj wnętrze <span class="material-symbols-outlined text-base">arrow_forward</span>
-                                 </button>
+                          </div>
+                        </transition>
+
+                        <!-- Interactive Floating Hotspots for Scene 2 -->
+                        <div v-if="currentScene === 2 && !isVideoPlaying" class="absolute inset-0 z-30 pointer-events-none">
+                          <div class="absolute left-[30%] top-[45%] pointer-events-auto group translate-x-[-50%] translate-y-[-50%]" @mouseenter="hoveredArea = 2" @mouseleave="hoveredArea = null">
+                            <div @click="playVideoForSegment('left')" class="relative flex flex-col items-center">
+                              <div class="bg-white/90 backdrop-blur-xl rounded-full p-1.5 shadow-2xl border border-white/50 transition-all duration-500 ease-out group-hover:rounded-[2rem] group-hover:p-6 group-hover:w-64 cursor-pointer overflow-hidden max-w-[140px] group-hover:max-w-[300px] border-primary/20">
+                                <div class="flex items-center gap-2 px-2 py-1">
+                                  <span class="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)] animate-pulse shrink-0"></span>
+                                  <span class="text-[10px] font-bold tracking-widest uppercase text-green-700 whitespace-nowrap">Segment Lewy</span>
+                                </div>
+                                <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden text-center">
+                                  <div class="pt-4 pb-2 px-4">
+                                     <div class="flex justify-around mb-4">
+                                        <div>
+                                          <div class="text-[10px] text-secondary font-bold uppercase tracking-wider mb-0.5">Powierzchnia</div>
+                                          <div class="text-on-surface font-bold">121 m²</div>
+                                        </div>
+                                        <div class="w-[1px] bg-outline-variant/30"></div>
+                                        <div>
+                                          <div class="text-[10px] text-secondary font-bold uppercase tracking-wider mb-0.5">Działka</div>
+                                          <div class="text-on-surface font-bold">310 m²</div>
+                                        </div>
+                                     </div>
+                                     <button class="w-full primary-gradient-bg text-white py-2.5 rounded-xl font-label text-[10px] font-bold tracking-widest uppercase shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                                        Odkryj wnętrze <span class="material-symbols-outlined text-base">arrow_forward</span>
+                                     </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="w-[2px] h-12 bg-gradient-to-b from-primary/40 to-transparent group-hover:h-8 transition-all duration-500"></div>
+                            </div>
+                          </div>
+                          <div class="absolute left-[70%] top-[45%] pointer-events-auto group translate-x-[-50%] translate-y-[-50%]" @mouseenter="hoveredArea = 3" @mouseleave="hoveredArea = null">
+                            <div class="relative flex flex-col items-center">
+                              <div class="bg-white/80 backdrop-blur-xl rounded-full p-1.5 shadow-xl border border-white/40 border-orange-500/20 px-4 py-2">
+                                <div class="flex items-center gap-2">
+                                  <span class="w-2.5 h-2.5 rounded-full bg-orange-500 shrink-0"></span>
+                                  <span class="text-[10px] font-bold tracking-widest uppercase text-orange-700 whitespace-nowrap">S. Prawy - Rezerwacja</span>
+                                </div>
+                              </div>
+                              <div class="w-[2px] h-12 bg-gradient-to-b from-orange-400/40 to-transparent"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Interactive Scene 3 (Floor Plan) -->
+                        <div v-if="currentScene === 3 && !isVideoPlaying" class="absolute inset-0 z-30">
+                          <svg viewBox="0 0 2754 1536" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full pointer-events-none">
+                            <polygon v-for="room in roomBadges" :key="'poly-'+room.id" :points="room.points" fill="transparent" class="cursor-pointer pointer-events-auto" @mouseenter="hoveredArea = room.id" @mouseleave="hoveredArea = null" @click="selectApartment(room.key)" />
+                          </svg>
+                          <div class="absolute inset-0 pointer-events-none">
+                            <div v-for="room in roomBadges" :key="'badge-'+room.id" class="absolute transition-all duration-500 ease-out translate-x-[-50%] translate-y-[-50%]" :style="{ left: room.x, top: room.y }">
+                              <div class="relative flex items-center justify-center bg-white/90 backdrop-blur-md rounded-full shadow-xl border-2 transition-all duration-500" :class="hoveredArea === room.id ? 'px-4 py-1.5 border-primary max-w-[200px] h-auto rounded-xl -translate-y-2' : 'w-4 h-4 border-surface-variant/40 max-w-[16px] h-4'">
+                                <div v-if="hoveredArea !== room.id" class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                                <div class="flex flex-col items-center transition-all duration-500 whitespace-nowrap" :class="hoveredArea === room.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 h-0'">
+                                   <span class="text-[8px] font-bold tracking-[0.2em] text-primary uppercase mb-0.5">{{ room.name }}</span>
+                                   <span class="text-[11px] font-extrabold text-on-surface">{{ room.area }}</span>
+                                </div>
                               </div>
                             </div>
                           </div>
-                          <div class="w-[2px] h-12 bg-gradient-to-b from-primary/40 to-transparent group-hover:h-8 transition-all duration-500"></div>
                         </div>
-                      </div>
-                      <div class="absolute left-[70%] top-[45%] pointer-events-auto group translate-x-[-50%] translate-y-[-50%]" @mouseenter="hoveredArea = 3" @mouseleave="hoveredArea = null">
-                        <div class="relative flex flex-col items-center">
-                          <div class="bg-white/80 backdrop-blur-xl rounded-full p-1.5 shadow-xl border border-white/40 border-orange-500/20">
-                            <div class="flex items-center gap-2 px-2 py-1">
-                              <span class="w-2.5 h-2.5 rounded-full bg-orange-500 shrink-0"></span>
-                              <span class="text-[10px] font-bold tracking-widest uppercase text-orange-700 whitespace-nowrap">S. Prawy - Rezerwacja</span>
+
+                        <!-- Scene 4 (Technical Plan) -->
+                        <transition name="plan-fade">
+                          <div v-if="currentScene === 4" class="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50" @click="goToScene(3)">
+                            <button @click="goToScene(3)" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md flex items-center justify-center transition-colors z-50">
+                              <span class="material-symbols-outlined text-white text-2xl">close</span>
+                            </button>
+                            <div class="max-w-5xl max-h-[90vh]" @click.stop>
+                              <img src="/assets/scenes/rzut.png" alt="Rzut techniczny" class="w-full h-full object-contain" />
                             </div>
                           </div>
-                          <div class="w-[2px] h-12 bg-gradient-to-b from-orange-400/40 to-transparent"></div>
-                        </div>
-                      </div>
+                        </transition>
+
                     </div>
-
-                    <!-- Interactive Scene 3 (Floor Plan) -->
-                    <div v-if="currentScene === 3 && !isVideoPlaying" class="absolute inset-0">
-                      <svg viewBox="0 0 2754 1536" class="absolute inset-0 w-full h-full pointer-events-none">
-                        <polygon v-for="room in roomBadges" :key="'poly-'+room.id" :points="room.points" fill="transparent" class="cursor-pointer pointer-events-auto" @mouseenter="hoveredArea = room.id" @mouseleave="hoveredArea = null" @click="selectApartment(room.key)" />
-                      </svg>
-                      <div class="absolute inset-0 pointer-events-none">
-                        <div v-for="room in roomBadges" :key="'badge-'+room.id" 
-                             class="absolute transition-all duration-500 ease-out translate-x-[-50%] translate-y-[-50%]" 
-                             :style="{ left: room.x, top: room.y }">
-                          
-                          <!-- Room Hotspot / Badge Container -->
-                          <div 
-                            class="relative flex items-center justify-center bg-white/90 backdrop-blur-md rounded-full shadow-xl border-2 transition-all duration-500 overflow-hidden" 
-                            :class="hoveredArea === room.id ? 'px-4 py-1.5 border-primary max-w-[200px] h-auto rounded-xl -translate-y-2' : 'w-4 h-4 border-surface-variant/40 max-w-[16px] h-4'"
-                          >
-                            <!-- Pulsating Dot (Visible in idle state) -->
-                            <div v-if="hoveredArea !== room.id" class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-
-                            <!-- Expanded Content (Visible on hover) -->
-                            <div 
-                              class="flex flex-col items-center transition-all duration-500 whitespace-nowrap"
-                              :class="hoveredArea === room.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 h-0'"
-                            >
-                               <span class="text-[8px] font-bold tracking-[0.2em] text-primary uppercase mb-0.5">{{ room.name }}</span>
-                               <span class="text-[11px] font-extrabold text-on-surface">{{ room.area }}</span>
-                            </div>
-
-                            <!-- Active Glow -->
-                            <div v-if="hoveredArea === room.id" class="absolute inset-0 bg-primary/5 rounded-xl animate-pulse -z-10 overflow-hidden"></div>
-                          </div>
-                          
-                          <!-- Connector Dot Pulse (Always under the hotspot) -->
-                          <div v-if="hoveredArea !== room.id" class="absolute inset-0 w-8 h-8 -translate-x-[25%] -translate-y-[25%] bg-primary/20 rounded-full animate-ping pointer-events-none"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Scene 4 (Technical Plan) -->
-                    <transition name="plan-fade">
-                      <div v-if="currentScene === 4" class="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-30" @click="goToScene(3)">
-                        <button @click="goToScene(3)" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md flex items-center justify-center transition-colors z-40">
-                          <span class="material-symbols-outlined text-white text-2xl">close</span>
-                        </button>
-                        <div class="max-w-5xl max-h-[90vh]" @click.stop>
-                          <img src="/assets/scenes/rzut.png" alt="Rzut techniczny" class="w-full h-full object-contain" />
-                        </div>
-                      </div>
-                    </transition>
                   </div>
-                  
-                  <!-- Bottom Pagination -->
-                  <div class="px-6 py-2 border-t border-surface-variant/5 bg-surface-container-low/30 mt-auto">
-                    <div class="flex items-center justify-center gap-6 text-secondary text-sm">
-                      <button @click="goToScene(1)" class="flex flex-col items-center gap-1 group">
-                        <span class="w-8 h-1 rounded-full transition-colors" :class="currentScene === 1 ? 'bg-primary' : 'bg-outline-variant/30 group-hover:bg-outline-variant/50'"></span>
-                        <span class="text-[9px] font-bold tracking-tighter" :class="currentScene === 1 ? 'text-primary' : 'text-secondary/60'">START</span>
+
+                  <!-- Scene Title Overlay -->
+                  <div class="absolute top-6 left-6 z-40 pointer-events-none">
+                    <div class="bg-white/80 backdrop-blur-md px-4 py-2 rounded-xl border border-white/50 shadow-sm">
+                      <div class="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
+                        {{ currentScene === 1 ? 'WIDOK ZEWNĘTRZNY' : currentScene === 2 ? 'WYBÓR SEGMENTU' : currentScene === 3 ? 'RZUT KONDYGNACJI' : 'RZUT TECHNICZNY' }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Subtle Bottom Navigation -->
+                  <div class="px-6 py-4 border-t border-surface-variant/5 bg-white/20 mt-auto z-40">
+                    <div class="flex items-center justify-center gap-10">
+                      <button @click="goToScene(1)" class="flex flex-col items-center gap-1.5 group">
+                        <div class="w-10 h-1 rounded-full transition-all duration-500" :class="currentScene === 1 ? 'bg-primary w-14' : 'bg-outline-variant/30 group-hover:bg-outline-variant/60'"></div>
+                        <span class="text-[10px] font-bold tracking-[0.1em]" :class="currentScene === 1 ? 'text-primary' : 'text-secondary/40'">START</span>
                       </button>
-                      <button @click="goToScene(2)" class="flex flex-col items-center gap-1 group">
-                        <span class="w-8 h-1 rounded-full transition-colors" :class="currentScene === 2 ? 'bg-primary' : 'bg-outline-variant/30 group-hover:bg-outline-variant/50'"></span>
-                        <span class="text-[9px] font-bold tracking-tighter" :class="currentScene === 2 ? 'text-primary' : 'text-secondary/60'">WYBÓR</span>
+                      <button @click="goToScene(2)" class="flex flex-col items-center gap-1.5 group">
+                        <div class="w-10 h-1 rounded-full transition-all duration-500" :class="currentScene === 2 ? 'bg-primary w-14' : 'bg-outline-variant/30 group-hover:bg-outline-variant/60'"></div>
+                        <span class="text-[10px] font-bold tracking-[0.1em]" :class="currentScene === 2 ? 'text-primary' : 'text-secondary/40'">WYBÓR</span>
                       </button>
-                      <button @click="goToScene(3)" class="flex flex-col items-center gap-1 group">
-                        <span class="w-8 h-1 rounded-full transition-colors" :class="currentScene === 3 ? 'bg-primary' : 'bg-outline-variant/30 group-hover:bg-outline-variant/50'"></span>
-                        <span class="text-[9px] font-bold tracking-tighter" :class="currentScene === 3 ? 'text-primary' : 'text-secondary/60'">RZUT</span>
+                      <button @click="goToScene(3)" class="flex flex-col items-center gap-1.5 group">
+                        <div class="w-10 h-1 rounded-full transition-all duration-500" :class="currentScene === 3 ? 'bg-primary w-14' : 'bg-outline-variant/30 group-hover:bg-outline-variant/60'"></div>
+                        <span class="text-[10px] font-bold tracking-[0.1em]" :class="currentScene === 3 ? 'text-primary' : 'text-secondary/40'">RZUT</span>
                       </button>
-                      <button @click="goToScene(4)" class="flex flex-col items-center gap-1 group">
-                        <span class="w-8 h-1 rounded-full transition-colors" :class="currentScene === 4 ? 'bg-primary' : 'bg-outline-variant/30 group-hover:bg-outline-variant/50'"></span>
-                        <span class="text-[9px] font-bold tracking-tighter" :class="currentScene === 4 ? 'text-primary' : 'text-secondary/60'">TECHNICZNY</span>
+                      <button @click="goToScene(4)" class="flex flex-col items-center gap-1.5 group">
+                        <div class="w-10 h-1 rounded-full transition-all duration-500" :class="currentScene === 4 ? 'bg-primary w-14' : 'bg-outline-variant/30 group-hover:bg-outline-variant/60'"></div>
+                        <span class="text-[10px] font-bold tracking-[0.1em]" :class="currentScene === 4 ? 'text-primary' : 'text-secondary/40'">TECHNIK</span>
                       </button>
                     </div>
                   </div>
+
                 </div>
               </div>
               
               <!-- Right Detail Panel -->
-              <div class="lg:col-span-3 flex flex-col min-h-0">
-                <div class="bg-white rounded-3xl p-8 shadow-sm border border-surface-variant/20 flex-1 flex flex-col min-h-0 overflow-y-auto">
+              <div class="lg:col-span-3 flex flex-col min-h-0 overflow-hidden relative">
+                <!-- Inner Panel with Glass Shine Animation on Change -->
+                <div 
+                  :key="selectedRoomId + currentScene"
+                  class="bg-white rounded-3xl p-8 shadow-sm border border-surface-variant/20 flex-1 flex flex-col min-h-0 overflow-y-auto relative glass-panel animate-glass-shine"
+                >
                   <div class="text-[10px] font-label font-bold tracking-[0.2em] text-secondary mb-8 uppercase flex items-center gap-2">
                     <span class="w-4 h-[1px] bg-secondary/30"></span>
                     Szczegóły Wyboru
@@ -282,6 +256,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -400,4 +375,33 @@ const selectSegment = (segment: 'left' | 'right') => {
 
 .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Glass Shine Animation */
+.glass-panel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -200%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 50;
+}
+
+.animate-glass-shine::after {
+  animation: glassShine 0.8s ease-in-out forwards;
+}
+
+@keyframes glassShine {
+  0% { left: -200%; }
+  100% { left: 100%; }
+}
 </style>
