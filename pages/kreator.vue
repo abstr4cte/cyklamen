@@ -23,9 +23,18 @@
           <div class="flex-1 flex flex-col min-h-0 p-4 md:p-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
               <!-- House Stage -->
-              <div class="lg:col-span-9 h-full min-h-0">
-                <div class="bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-inner border border-surface-variant/10 h-full flex flex-col min-h-0 relative">
-                  <div class="px-6 pt-3 pb-2">
+              <!-- House Stage Container (Scrollable on small screens) -->
+              <div class="lg:col-span-9 h-full min-h-0 overflow-x-auto overflow-y-hidden custom-scrollbar">
+                <div class="bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-inner border border-surface-variant/10 h-full min-h-[500px] min-w-[1000px] xl:min-w-0 relative aspect-[2754/1536]">
+                  <!-- Instructional Hint for Horizontal Scroll -->
+                  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 lg:hidden pointer-events-none">
+                    <div class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold tracking-widest px-4 py-2 rounded-full uppercase flex items-center gap-2">
+                       <span class="material-symbols-outlined text-sm">swipe_left</span>
+                       Przesuń, aby zobaczyć cały dom
+                    </div>
+                  </div>
+
+                  <div class="px-6 pt-3 pb-2 absolute top-0 left-0 z-20">
                     <div class="text-xs font-label tracking-widest text-secondary uppercase">
                       STAGE: {{ currentScene === 1 ? 'WIDOK ZEWNĘTRZNY' : currentScene === 2 ? 'WYBÓR SEGMENTU' : currentScene === 3 ? 'RZUT KONDYGNACJI' : 'RZUT TECHNICZNY' }}
                     </div>
